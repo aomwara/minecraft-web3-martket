@@ -45,6 +45,19 @@ const Home = () => {
     setUsers(JSON.parse(response.data));
   };
 
+  const mintItem = async () => {
+    const resp = await axios.get(
+      `https://mc.aom.engineer/api/mint.php?to=${recipient}&item=${selectedItem}&quantity=${quantity}`
+    );
+    if (resp.data == "minted") {
+      setRecipient(null);
+      setQuantity(0);
+      setSelectedItem(null);
+      setItemPrice(0);
+      alert("Mint Item Success!");
+    }
+  };
+
   useEffect(() => {
     getUser();
   }, []);
@@ -97,7 +110,7 @@ const Home = () => {
 
   useEffect(() => {
     buyData?.wait().then((resp) => {
-      alert("Buy Successful");
+      mintItem();
       setLoading(false);
     });
   }, [buyData]);
