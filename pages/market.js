@@ -78,7 +78,7 @@ const Home = () => {
     Address.MARKET,
     itemPrice * quantity <= 0
       ? ethers.utils.parseEther("0.1")
-      : ethers.utils.parseEther((itemPrice * quantity).toString())
+      : ethers.utils.parseEther(((itemPrice / 1e18) * quantity).toString())
   );
 
   const { handleBuy, data: buyData } = useBuy(
